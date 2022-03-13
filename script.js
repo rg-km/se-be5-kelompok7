@@ -9,7 +9,7 @@ const DIRECTION = {
     UP: 2,
     DOWN: 3,
 }
-const MOVE_INTERVAL = 150;
+let MOVE_INTERVAL = 120;
 
 function initPosition() {
     return {
@@ -84,7 +84,23 @@ function drawLevel(snake) {
     level.fillStyle = snake.color
     level.fillText(snake.level, 140, 90);
 
+    let score = snake.score
+    if (score  === 5){
+        snake.level = 2
+        MOVE_INTERVAL = 90
+    }else if (score === 10){
+        snake.level = 3
+        MOVE_INTERVAL = 70
+    }else if (score === 15){
+        snake.level = 4
+        MOVE_INTERVAL = 50
+    }else if (score === 20){
+        snake.level = 5
+        MOVE_INTERVAL = 30
+    }
+
 }
+
 
 function draw() {
     setInterval(function() {
