@@ -72,6 +72,10 @@ tombol.src = 'assets/audio/tombol.mp3'
 // image
 const APPLE_IMAGE = new Image()
 APPLE_IMAGE.src = 'assets/img/apel.png'
+const HEAD_SNAKE = new Image(); 
+HEAD_SNAKE.src = 'assets/img/headSnake.png';
+const BODY_SNAKE = new Image(); 
+BODY_SNAKE.src = 'assets/img/body.png';
 
 function drawCell(ctx, x, y, color) {
     ctx.fillStyle = color;
@@ -138,9 +142,9 @@ function draw() {
 
         ctx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
         
-        drawCell(ctx, snake.head.x, snake.head.y, snake.color);
+        drawImage(ctx, snake.head.x, snake.head.y, HEAD_SNAKE );
         for (let i = 1; i < snake.body.length; i++) {
-            drawCell(ctx, snake.body[i].x, snake.body[i].y, snake.color);
+            drawImage(ctx, snake.body[i].x, snake.body[i].y, BODY_SNAKE);
         }
         // drawCell(ctx, snake2.head.x, snake2.head.y, snake2.color);
         // for (let i = 1; i < snake2.body.length; i++) {
