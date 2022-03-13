@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
-<body class="bg-[#2B2D42] font-poppins">
+<body class="bg-[#2B2D42] font-poppins" onload="draw()">
     <div class="container mx-auto tracking-wider">
         <!-- judul -->
         <p class="font-bold text-[#FFC300] text-4xl py-3">Snake Game</p>
@@ -30,13 +30,13 @@
                     <!-- score -->
                     <div class="score">
                         <div class="head text-[#FF0054] text-3xl font-bold tracking-wider text-center mb-4">Scores</div>
-                        <canvas class="bg-[#2B2D42] rounded-xl"></canvas>
+                        <canvas class="bg-[#2B2D42] rounded-xl text-center" id="score1Board"></canvas>
                     </div>
 
                     <!-- level -->
                     <div class="level">
                         <div class="head text-[#AA16E8] text-3xl font-bold tracking-wider text-center mb-4">Level</div>
-                        <canvas class="bg-[#2B2D42] rounded-xl"></canvas>
+                        <canvas class="bg-[#2B2D42] rounded-xl" id="level"></canvas>
                     </div>
                 </div>
 
@@ -50,6 +50,7 @@
 
         </div>
     </div>
+    <script src="script.js"></script>
 </body>
 
 </html>
