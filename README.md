@@ -2,5 +2,5 @@
 -------------------------
 Dikembangkan oleh :
    ### 1. Nanda
-   ### 2. Naura
+   ### 2. Yuli
    ### 3. Reza
