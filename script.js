@@ -48,6 +48,18 @@ let apple = {
     position: initPosition(),
 }
 
+// sound
+let levelUp = new Audio();
+let makan = new Audio();
+let dead = new Audio();
+let backsound = new Audio();
+let tombol = new Audio();
+levelUp.src = 'assets/audio/levelUp.wav'
+makan.src = 'assets/audio/eat.mp3'
+dead.src = 'assets/audio/dead.wav'
+backsound.src = 'assets/audio/backsound.mp3'
+tombol.src = 'assets/audio/tombol.mp3'
+
 function drawCell(ctx, x, y, color) {
     ctx.fillStyle = color;
     ctx.fillRect(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
@@ -88,15 +100,19 @@ function drawLevel(snake) {
     if (score  === 5){
         snake.level = 2
         MOVE_INTERVAL = 90
+        levelUp.play()
     }else if (score === 10){
         snake.level = 3
         MOVE_INTERVAL = 70
+        levelUp.play()
     }else if (score === 15){
         snake.level = 4
         MOVE_INTERVAL = 50
+        levelUp.play()
     }else if (score === 20){
         snake.level = 5
         MOVE_INTERVAL = 30
+        levelUp.play()
     }
 
 }
@@ -122,6 +138,8 @@ function draw() {
         drawScore(snake);
         drawLevel(snake);
         // drawScore(snake2);
+        
+        backsound.play()
     }, REDRAW_INTERVAL);
 }
 
@@ -142,6 +160,7 @@ function teleport(snake) {
 
 function eat(snake, apple) {
     if (snake.head.x == apple.position.x && snake.head.y == apple.position.y) {
+        makan.play()
         apple.position = initPosition();
         snake.score++;
         snake.body.push({x: snake.head.x, y: snake.head.y});
@@ -179,14 +198,18 @@ function checkCollision(snakes) {
         for (let j = 0; j < snakes.length; j++) {
             for (let k = 1; k < snakes[j].body.length; k++) {
                 if (snakes[i].head.x == snakes[j].body[k].x && snakes[i].head.y == snakes[j].body[k].y) {
+                    dead.play()
                     isCollide = true;
+
                 }
             }
         }
     }
     if (isCollide) {
+        
         alert("Game over");
         snake = initSnake("purple");
+        MOVE_INTERVAL = 120
         
     }
     return isCollide;
