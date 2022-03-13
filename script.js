@@ -176,10 +176,10 @@ function teleport(snake) {
     }
 }
 
-function eat(snake, apple1) {
-    if (snake.head.x == apple1.position.x && snake.head.y == apple1.position.y) {
+function eat(snake, apple) {
+    if (snake.head.x == apple.position.x && snake.head.y == apple.position.y) {
         makan.play()
-        apple1.position = initPosition();
+        apple.position = initPosition();
         snake.score++;
         snake.body.push({x: snake.head.x, y: snake.head.y});
     }
