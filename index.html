@@ -1,13 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="assets/img/favicon.png">
     <title>Snake Game</title>
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
-<body>
-    <p class="text-blue-800 text-3xl">Hallo</p>
+
+<body class="bg-[#2B2D42] font-poppins">
+    <div class="container mx-auto tracking-wider">
+        <!-- judul -->
+        <p class="font-bold text-[#FFC300] text-4xl py-3">Snake Game</p>
+
+        <!-- main -->
+        <div class="board flex justify-between">
+
+            <!-- kiri -->
+            <canvas id="snakeBoard" width="590" height="590" style="border-radius: 15px;" class="bg-[#27283C]"></canvas>
+
+            <!-- kanan -->
+            <div id="info" width="400" height="590" style="border-radius: 15px;"
+                class="bg-[#27283C]  flex flex-col justify-evenly p-4">
+
+                <!-- body kanan -->
+                <div class="cover flex gap-3 ">
+                    <!-- score -->
+                    <div class="score">
+                        <div class="head text-[#FF0054] text-3xl font-bold tracking-wider text-center mb-4">Scores</div>
+                        <canvas class="bg-[#2B2D42] rounded-xl"></canvas>
+                    </div>
+
+                    <!-- level -->
+                    <div class="level">
+                        <div class="head text-[#AA16E8] text-3xl font-bold tracking-wider text-center mb-4">Level</div>
+                        <canvas class="bg-[#2B2D42] rounded-xl"></canvas>
+                    </div>
+                </div>
+
+                <!-- control -->
+                <div class="control  flex justify-center bg-[#2B2D42] py-16 rounded-xl">
+                    <img src="assets/img/controll.png" alt="control" width="220">
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
 </body>
+
 </html>
