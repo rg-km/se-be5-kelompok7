@@ -24,7 +24,7 @@ function initPosition() {
 
 function initHeadAndBody() {
     let head = initPosition();
-    let body = [{x: head.x, y: head.y}];
+    let body = [{ x: head.x, y: head.y }];
     return {
         head: head,
         body: body,
@@ -42,6 +42,7 @@ function initSnake(color) {
         direction: initDirection(),
         score: 0,
         level: 1,
+        life : 3,
     }
 }
 let snake = initSnake("purple");
@@ -56,6 +57,13 @@ let apple2 = {
     color: "blue",
     position: initPosition(),
 }
+
+let nyawa = {
+    color: "blue",
+    position: initPosition(),
+}
+
+
 
 // sound
 const levelUp = new Audio();
@@ -72,10 +80,12 @@ tombol.src = 'assets/audio/tombol.mp3'
 // image
 const APPLE_IMAGE = new Image()
 APPLE_IMAGE.src = 'assets/img/apel.png'
-const HEAD_SNAKE = new Image(); 
+const HEAD_SNAKE = new Image();
 HEAD_SNAKE.src = 'assets/img/headSnake.png';
-const BODY_SNAKE = new Image(); 
+const BODY_SNAKE = new Image();
 BODY_SNAKE.src = 'assets/img/body.png';
+const NYAWA_IMAGE = new Image();
+NYAWA_IMAGE.src = 'assets/img/nyawa.png';
 
 function drawCell(ctx, x, y, color) {
     ctx.fillStyle = color;
@@ -114,19 +124,19 @@ function drawLevel(snake) {
     level.fillText(snake.level, 140, 90);
 
     let score = snake.score
-    if (score  === 5){
+    if (score === 5) {
         snake.level = 2
         MOVE_INTERVAL = 90
         levelUp.play()
-    }else if (score === 10){
+    } else if (score === 10) {
         snake.level = 3
         MOVE_INTERVAL = 70
         levelUp.play()
-    }else if (score === 15){
+    } else if (score === 15) {
         snake.level = 4
         MOVE_INTERVAL = 50
         levelUp.play()
-    }else if (score === 20){
+    } else if (score === 20) {
         snake.level = 5
         MOVE_INTERVAL = 30
         levelUp.play()
@@ -134,15 +144,32 @@ function drawLevel(snake) {
 
 }
 
+// update life
+function updateLife(snake) {
+	let lifeSnake = document.getElementById('life');
+	lifeSnake.innerHTML = '';
+    let life = snake.life
+    console.log(life)
+	for (var i = 1; i <= life; i++) {
+		let node = document.createElement('IMG');
+		node.src = './assets/img/nyawa.png';
+		lifeSnake.appendChild(node);
+	}
+}
+
 
 function draw() {
-    setInterval(function() {
+    setInterval(function () {
         let snakeCanvas = document.getElementById("snakeBoard");
         let ctx = snakeCanvas.getContext("2d");
+        let speed = document.getElementById('speed')
+
+        // field NYAWA_IMAGE
+        // let nyawaFiedl = document.getElementById('nyawa')
 
         ctx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
-        
-        drawImage(ctx, snake.head.x, snake.head.y, HEAD_SNAKE );
+
+        drawImage(ctx, snake.head.x, snake.head.y, HEAD_SNAKE);
         for (let i = 1; i < snake.body.length; i++) {
             drawImage(ctx, snake.body[i].x, snake.body[i].y, BODY_SNAKE);
         }
@@ -152,11 +179,28 @@ function draw() {
         // }
         drawImage(ctx, apple1.position.x, apple1.position.y, APPLE_IMAGE);
         drawImage(ctx, apple2.position.x, apple2.position.y, APPLE_IMAGE);
+        
+
+        // memunculkan icon nyawa ketika score prima
+        let score = snake.score
+        let pembagi = 0
+        for (let i = 1; i<= score ; i++){
+            if (score%i === 0){
+                pembagi++
+            }
+        }
+        if (pembagi == 2){
+            drawImage(ctx, nyawa.position.x, nyawa.position.y, NYAWA_IMAGE);
+        }
+
+        // menampilkan speed
+        speed.innerHTML='Life Opportunity : ' + MOVE_INTERVAL + '%'
+
 
         drawScore(snake);
         drawLevel(snake);
-        // drawScore(snake2);
-        
+
+
         backsound.play()
     }, REDRAW_INTERVAL);
 }
@@ -181,7 +225,18 @@ function eat(snake, apple) {
         makan.play()
         apple.position = initPosition();
         snake.score++;
-        snake.body.push({x: snake.head.x, y: snake.head.y});
+        snake.body.push({ x: snake.head.x, y: snake.head.y });
+    }
+}
+
+function eatNyawa(snake, nyawa) {
+    if (snake.head.x == nyawa.position.x && snake.head.y == nyawa.position.y) {
+        makan.play()
+        nyawa.position = initPosition();
+        snake.score++;
+        snake.life++
+        console.log(snake.life++)
+        snake.body.push({ x: snake.head.x, y: snake.head.y });
     }
 }
 
@@ -190,6 +245,8 @@ function moveLeft(snake) {
     teleport(snake);
     eat(snake, apple1);
     eat(snake, apple2);
+    eatNyawa(snake, nyawa);
+    
 }
 
 function moveRight(snake) {
@@ -197,6 +254,8 @@ function moveRight(snake) {
     teleport(snake);
     eat(snake, apple1);
     eat(snake, apple2);
+    eatNyawa(snake, nyawa);
+    
 }
 
 function moveDown(snake) {
@@ -204,6 +263,8 @@ function moveDown(snake) {
     teleport(snake);
     eat(snake, apple1);
     eat(snake, apple2);
+    eatNyawa(snake, nyawa);
+    
 }
 
 function moveUp(snake) {
@@ -211,6 +272,8 @@ function moveUp(snake) {
     teleport(snake);
     eat(snake, apple1);
     eat(snake, apple2);
+    eatNyawa(snake, nyawa);
+    
 }
 
 function checkCollision(snakes) {
@@ -228,11 +291,11 @@ function checkCollision(snakes) {
         }
     }
     if (isCollide) {
-        
+
         alert("Game over");
         snake = initSnake("purple");
         MOVE_INTERVAL = 120
-        
+
     }
     return isCollide;
 }
@@ -254,7 +317,7 @@ function move(snake) {
     }
     moveBody(snake);
     if (!checkCollision([snake])) {
-        setTimeout(function() {
+        setTimeout(function () {
             move(snake);
         }, MOVE_INTERVAL);
     } else {
