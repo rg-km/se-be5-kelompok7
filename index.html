@@ -13,12 +13,24 @@
 <body class="bg-[#2B2D42] font-poppins" onload="draw()">
     <div class="container mx-auto tracking-wider">
         <!-- judul -->
-        <p class="font-bold text-[#FFC300] text-4xl py-3">Snake Game</p>
+        <div class="top flex justify-between items-center">
+            <p class="font-bold text-[#FFC300] text-4xl py-3">Snake Game</p>
+            <div id="speed" class="py-3 font-medium text-2xl text-[#FFC300]"></div>
+        </div>
 
         <!-- main -->
         <div class="board flex justify-between">
 
+            
             <!-- kiri -->
+            <div class="absolute left-11 mt-2">
+                <div class="flex gap-1" id="life">
+                    <img src="./assets/img/nyawa.png" alt="" style="width: 15px; height: 15px;">
+                    <img src="./assets/img/nyawa.png" alt="" style="width: 15px; height: 15px;">
+                    <img src="./assets/img/nyawa.png" alt="" style="width: 15px; height: 15px;">
+                </div>
+            </div>
+            <!-- <div class="nyawa absolute left-12 border" id="nyawa" width="130" height="20"></div> -->
             <canvas id="snakeBoard" width="600" height="600" style="border-radius: 15px;" class="bg-[#27283C]"></canvas>
 
             <!-- kanan -->
